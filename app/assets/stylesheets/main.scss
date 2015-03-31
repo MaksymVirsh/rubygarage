@@ -1,0 +1,26 @@
+$loading-bar-color: #337ab7;
+
+body {
+  padding: 20px 0 0;
+  background: #ba680e asset-url('bg-body.png') repeat-x 0 0;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+[ng-click], [data-ng-click], [x-ng-click] {
+  cursor: pointer;
+}
+
+
+
+#loading-bar .bar {
+  background: $loading-bar-color;
+  height: 6px;
+}
+
+#loading-bar-spinner .spinner-icon {
+  border-top-color:  $loading-bar-color;
+  border-left-color: $loading-bar-color;
+}

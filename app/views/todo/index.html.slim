@@ -1,0 +1,71 @@
+.logo
+  | Simple TODO List
+  .small from Ruby Garage
+
+#todo-controller data-ng-controller='TodoController' data-ng-cloak=''
+
+  .projects data-ng-repeat='project in projects'
+    form.project-form name='form.{{$index}}' novalidate=''
+      .project-header data-hoverable=''
+        .project-field
+
+          .project-error data-ng-show='project.errors.length'
+            .error data-ng-repeat='error in project.errors' {{ error | capitalize }}
+
+          h2 data-ng-if='!project.editing'
+            | {{project.name}}
+          input.project-name-field [name='name' type='text' autocomplete='off'
+            data-ng-if='project.editing' data-ng-model='project.name'
+            data-ng-enter='saveProject(project, $index)' data-auto-focus='' required='']
+
+        .control
+          ul.project-control
+            li: a.edit.edit-project href='' data-ng-click='editProject(project)'
+            li: a.delete.delete-project href='' data-ng-click='deleteProject(project)'
+
+      .create-task-header data-ng-if='project.id'
+        .create-task-in.input-group
+
+          input.create-task-name-field.form-control [name='task_name' type='text'
+            autocomplete='off' data-ng-model='project.task_name'
+            data-ng-enter='addTask(project, $index)'
+            placeholder='Start typing here to create a task...' required='']
+          .input-group-btn
+            a.add-task.btn.btn-success [href='' data-ng-disabled='!project.task_name'
+              data-ng-click='addTask(project, $index)'] Add task
+
+      .task-list
+        table.tasks
+          tbody data-as-sortable='dragControlListeners' data-ng-model='project.tasks'
+
+            tr.task-item [data-ng-repeat='task in project.tasks'
+              data-as-sortable-item='' data-hoverable='']
+              td.task-status
+                input [type='checkbox' name='status' data-ng-model='task.done'
+                  data-ng-change='taskDone(task)']
+
+              td.task-name
+                .left-border
+                  .task-name-text [data-ng-if='!task.editing'
+                    data-ng-class='{ "task-done": task.done }'] {{task.name}}
+                  textarea.task-name-field [name='name' rows='1'
+                    data-ng-if='task.editing' data-ng-model='task.name'
+                    data-ng-enter='saveTask(task)' data-elastic=''
+                    data-auto-focus='' required='']
+
+                  .task-error data-ng-show='task.errors.length'
+                    .error data-ng-repeat='error in task.errors' {{ error | capitalize }}
+
+              td.task-control
+                .control
+                  ul
+                    li: a.sort.sort-task href='' data-as-sortable-item-handle=''
+                    li: a.edit.edit-task href='' data-ng-click='editTask(task)'
+                    li: a.delete.delete-task href='' data-ng-click='deleteTask(task)'
+
+  .row
+    .col-xs-12.footer
+      a.create-project.btn.btn-lg.btn-primary [href='' data-ng-click='addProject()'
+        data-ng-disabled='editing']
+        span.glyphicon.glyphicon-plus
+        |  Add TODO List
