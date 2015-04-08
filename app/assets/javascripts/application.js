@@ -19,10 +19,13 @@
 //= require ng-sortable
 //= require lodash
 //= require restangular
-//= require turbolinks
 //= require bootstrap-sprockets
 //
-//= require angular/elastic
 //= require todo
+//= require_tree ./controllers
+//= require_tree ./directives
+//= require_tree ./filters
+//= require_tree ./modules
+//= require_tree ./services
 //
 //  require_tree .

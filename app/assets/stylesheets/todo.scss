@@ -188,6 +188,9 @@
   padding: 0;
   cursor: pointer;
   position: relative;
+  word-wrap: break-word;
+  word-break: break-all;
+  table-layout: fixed;
 
   .left-border {
     border-left: 1px solid #efdadf;
@@ -202,8 +205,7 @@
     padding: 4px 8px;
     border-radius: 3px;
     outline: none;
-    word-wrap: break-word;
-    width: 585px;
+    width: 100%;
   }
 
   .task-name-field {
