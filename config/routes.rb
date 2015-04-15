@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     }
 
   authenticated :user do
-    root to: 'todo#index', as: :authenticated_root
+    root 'todo#index', as: :authenticated_root
   end
 
   root to: redirect('/auth/login')

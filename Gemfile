@@ -3,10 +3,8 @@ ruby '2.1.5'
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
-group :production do
-  # Heroku
-  gem 'rails_12factor', group: :production
-end
+# Heroku
+gem 'rails_12factor', group: :production
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
