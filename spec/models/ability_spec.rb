@@ -36,5 +36,7 @@ RSpec.describe Ability do
     it { should_not be_able_to :done, task_two, user: user }
     it { should be_able_to :sort, task_one, user: user }
     it { should_not be_able_to :sort, task_two, user: user }
+    it { should be_able_to :deadline, task_one, user: user }
+    it { should_not be_able_to :deadline, task_two, user: user }
   end
 end

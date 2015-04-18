@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :tasks, defaults: { format: :json } do
     put :done, on: :member
     put :sort, on: :member
+    put :deadline, on: :member
   end
 
 end

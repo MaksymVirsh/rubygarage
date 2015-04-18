@@ -223,5 +223,45 @@ feature 'Projects' do
       task_status_checkbox.set(true)
       expect(page).to have_css('.task-name-text.task-done')
     end
+
+
+
+    feature 'One task' do
+      background do
+        input_task_name 'Task 1'
+        press_enter_on_task_name
+      end
+
+      scenario 'show body', js: true do
+        expect(page).to_not have_css('.task-body')
+        click_on_task
+        expect(page).to have_css('.task-body')
+      end
+
+      feature 'Deadline' do
+        background do
+          click_on_task
+
+          find('.set-deadline').click
+          find('.datetimepicker .switch').click
+          find('.datetimepicker .month', text: 'Oct').click
+          find('.datetimepicker .day', text: 17).click
+          find('.datetimepicker .hour', text: '8:00 AM').click
+          find('.datetimepicker .minute', text: '8:00 AM').click
+        end
+
+        scenario 'set deadline', js: true do
+          deadline = find('.deadline').text
+          expect(deadline).to eq 'Oct 17, 2015 8:00 AM'
+        end
+
+        scenario 'cancel deadline', js: true do
+          find('.cancel-deadline').click
+          expect(page).to_not have_css('.deadline')
+          expect(page).to_not have_css('.cancel-deadline')
+        end
+
+      end
+    end
   end
 end

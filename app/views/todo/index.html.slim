@@ -39,7 +39,9 @@
           tbody data-as-sortable='dragControlListeners' data-ng-model='project.tasks'
 
             tr.task-item [data-ng-repeat='task in project.tasks'
+              data-ng-class='{ "active": task.active }'
               data-as-sortable-item='' data-hoverable='']
+
               td.task-status
                 input [type='checkbox' name='status' data-ng-model='task.done'
                   data-ng-change='taskDone(task)']
@@ -47,7 +49,11 @@
               td.task-name
                 .left-border
                   .task-name-text [data-ng-if='!task.editing'
-                    data-ng-class='{ "task-done": task.done }'] {{task.name}}
+                    data-ng-class='{ "task-done": task.done }'
+                    data-ng-click='setActive(task)']
+                      ' {{task.name}}
+                      span.label.label-danger.deadline data-ng-if='task.deadline'
+                        ' {{ task.deadline | date: 'MMM d, y h:mm a' }}
                   textarea.task-name-field [name='name' rows='1'
                     data-ng-if='task.editing' data-ng-model='task.name'
                     data-ng-enter='saveTask(task)' data-elastic=''
@@ -55,6 +61,25 @@
 
                   .task-error data-ng-show='task.errors.length'
                     .error data-ng-repeat='error in task.errors' {{ error | capitalize }}
+
+                  .task-body data-ng-show='task.active'
+                    .dropdown
+                      button.btn.btn-default.btn-xs.dropdown-toggle.set-deadline id='dropdown-{{ task.id }}' data-toggle='dropdown'
+                        span.glyphicon.glyphicon-time
+                        span data-ng-if='!task.deadline'  Set deadline
+                        span data-ng-if='task.deadline'  Change deadline
+
+                      span data-ng-if='task.deadline'
+                        '  or
+
+                        button.btn.btn-default.btn-xs.cancel-deadline [type='button'
+                          data-ng-click='cancelDeadline(task)']
+                          span.glyphicon.glyphicon-remove
+                          '  Cancel
+
+                      .dropdown-menu
+                        datetimepicker [data-ng-model='task.deadline' data-on-set-time='onDateTimeSet(task, newDate)'
+                          data-datetimepicker-config='{ dropdownSelector: "#dropdown-{{ task.id }}" }']
 
               td.task-control
                 .control

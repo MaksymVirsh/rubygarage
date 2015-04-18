@@ -88,4 +88,8 @@ module AcceptanceHelpers
     find('.delete-task').click
     wait_for_ajax
   end
+
+  def click_on_task
+    find('.task-name').click
+  end
 end

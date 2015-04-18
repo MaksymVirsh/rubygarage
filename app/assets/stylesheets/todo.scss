@@ -134,15 +134,15 @@
   display: none;
 
   ul {
-    margin: 0 0 0 -8px;
+    margin: 0 0 0 -12px;
     padding: 0;
     word-spacing: -.3em;
   }
 
   li {
     display: inline-block;
-    margin: 0 0 0 4px;
-    padding: 0 0 0 4px;
+    margin: 0 0 0 6px;
+    padding: 0 0 0 6px;
     vertical-align: text-bottom;
     word-spacing: normal;
     border-left: 1px solid #ddd;
@@ -157,15 +157,14 @@
 }
 
 .task-list {
-  border-radius: 0 0 10px 10px;
   border: 1px solid #abafa3;
-  overflow: hidden;
+  /*border-radius: 0 0 10px 10px;*/
+  /*overflow: hidden;*/
 }
 
 .tasks {
   width: 100%;
   margin: -1px 0 0;
-  position: relative;
 }
 
 .task-status {
@@ -186,8 +185,6 @@
   font-weight: bold;
   color: #777;
   padding: 0;
-  cursor: pointer;
-  position: relative;
   word-wrap: break-word;
   word-break: break-all;
   table-layout: fixed;
@@ -234,6 +231,11 @@
   text-align: center;
   padding: 4px 0 0;
 
+  a {
+    width: 14px;
+    height: 14px;
+  }
+
   .sort {
     background: asset-url('icon-task-sort.png') no-repeat 50% 50%;
   }
@@ -257,6 +259,23 @@
     .task-control .control {
       display: inline-block;
     }
+  }
+
+  &.active {
+    background: #fcfed5;
+  }
+
+  .task-body {
+    background: #e4e5c1;
+    padding: 10px;
+    margin: 5px 0 0;
+    border-radius: 3px;
+    font-weight: normal;
+  }
+
+  .bootstrap-datetimepicker-widget {
+    padding: 0 10px 0 5px;
+    margin: 0;
   }
 }
 

@@ -78,4 +78,24 @@ RSpec.describe TasksController, type: :controller do
       expect(tasks_after).to eq tasks_before.reverse
     end
   end
+
+  describe 'PUT #deadline' do
+    let!(:project) { create(:project, user_id: @user.id) }
+    let!(:task) { create(:task, project_id: project.id) }
+
+    it 'set deadline' do
+      date = 'Mon Apr 18 2015 08:40:00 GMT+0000 (EEST)'
+      put :deadline, id: task, task: { deadline: date }
+      task.reload
+
+      expect(task.deadline).to eq date
+    end
+
+    it 'cancel deadline' do
+      put :deadline, id: task, task: { deadline: nil }
+      task.reload
+
+      expect(task.deadline).to eq nil
+    end
+  end
 end

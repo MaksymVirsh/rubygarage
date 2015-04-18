@@ -32,5 +32,6 @@ class Ability
     can :destroy, Task, project: { user: user }
     can :done, Task, project: { user: user }
     can :sort, Task, project: { user: user }
+    can :deadline, Task, project: { user: user }
   end
 end

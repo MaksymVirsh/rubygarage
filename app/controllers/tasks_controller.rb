@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   respond_to :json
 
   before_action :authenticate_user!
-  before_action :load_task, only: [:update, :destroy, :done, :sort]
+  before_action :load_task, only: [:update, :destroy, :done, :sort, :deadline]
 
   authorize_resource
 
@@ -30,6 +30,11 @@ class TasksController < ApplicationController
 
   def sort
     @task.set_list_position(params[:position].to_i + 1)
+    respond_with @task
+  end
+
+  def deadline
+    @task.update(deadline: params[:task][:deadline])
     respond_with @task
   end
 

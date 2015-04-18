@@ -8,5 +8,6 @@ RSpec.describe Task, type: :model do
   it { should respond_to :done }
   it { should respond_to :name }
   it { should respond_to :position }
+  it { should respond_to :deadline }
   it { should validate_presence_of :name }
 end

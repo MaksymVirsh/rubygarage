@@ -10,7 +10,7 @@ if window.location.hash and window.location.hash == '#_=_'
 ################################################################################
 
 app = angular.module 'todo', ['angular-loading-bar', 'ui.sortable', 'elastic'
-  , 'ngResource']
+  , 'ui.bootstrap.datetimepicker', 'ngResource']
 
 app.config ['$httpProvider', ($httpProvider) ->
   token = $('meta[name=csrf-token]').attr 'content'

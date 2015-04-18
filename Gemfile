@@ -14,8 +14,8 @@ gem 'responders'
 gem 'pg'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
+gem 'sass-rails', '~> 5.0'
 gem 'autoprefixer-rails'
 
 # AngularJS
@@ -25,6 +25,7 @@ gem 'rails-assets-angular-animate'
 gem 'rails-assets-angular-loading-bar'
 gem 'rails-assets-restangular'
 gem 'rails-assets-ng-sortable'
+gem 'rails-assets-angular-bootstrap-datetimepicker'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

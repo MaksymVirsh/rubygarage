@@ -88,6 +88,15 @@ angular.module('todo').controller 'TodoController', ['$rootScope', '$scope'
 
 
 
+  $scope.setActive = (task) ->
+    task.active = !task.active
+
+    _($scope.projects).forEach (project) ->
+      _.map project.tasks, (item) ->
+        item.active = no if item.id != task.id
+
+
+
   $scope.editTask = (task) ->
     $scope.editing = yes
     task.editing = yes
@@ -112,8 +121,21 @@ angular.module('todo').controller 'TodoController', ['$rootScope', '$scope'
         _.remove(project.tasks, task)
 
 
+
   $scope.taskDone = (task) ->
     Task.done({ id: task.id }, { done: task.done }).$promise.catch (resp) ->
       task.done = false
+
+
+
+  $scope.onDateTimeSet = (task, date) ->
+    Task.deadline({ id: task.id }, { deadline: date }).$promise.catch (resp) ->
+      task.deadline = null
+
+
+
+  $scope.cancelDeadline = (task) ->
+    Task.deadline({ id: task.id }, { deadline: null }).$promise.then (resp) ->
+      task.deadline = resp.deadline
 
 ]
