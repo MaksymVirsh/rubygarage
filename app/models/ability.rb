@@ -7,7 +7,7 @@ class Ability
   def initialize(user)
     @user = user
 
-    if @user
+    if user
       user_abilities
     else
       guest_abilities
@@ -21,7 +21,7 @@ class Ability
   def user_abilities
     guest_abilities
 
-    can :create, [Project, Task]
+    can :create, [Project, Task, Comment]
 
     can :read, Project, user: user
     can :update, Project, user: user
@@ -33,5 +33,7 @@ class Ability
     can :done, Task, project: { user: user }
     can :sort, Task, project: { user: user }
     can :deadline, Task, project: { user: user }
+
+    can :destroy, Comment, task: { project: { user: user } }
   end
 end

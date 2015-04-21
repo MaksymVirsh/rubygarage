@@ -1,10 +1,6 @@
 FactoryGirl.define do
-  sequence :project_name do |n|
-    "Project #{n}"
-  end
-
   factory :project do
-    name { generate :project_name }
+    name { Faker::Lorem.sentence }
   end
 
   factory :invalid_project, class: 'Project' do

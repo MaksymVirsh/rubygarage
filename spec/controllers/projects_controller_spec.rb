@@ -5,6 +5,26 @@ RSpec.describe ProjectsController, type: :controller do
 
   before(:each) { json_accept_headers }
 
+  it 'should have a current_user' do
+    expect(subject.current_user).to_not be_nil
+  end
+
+  describe 'GET #index' do
+    let!(:user) { create(:user) }
+    let!(:project) { create(:project, user_id: user.id) }
+    let!(:task) { create(:task, project_id: project.id) }
+
+    it 'returns curent users projects' do
+      allow(controller).to receive(:current_user) { user }
+
+      get :index
+
+      expect(assigns(:projects)).to_not be_nil
+      expect(json_response.first.keys).to be_include(:tasks)
+      expect(json_response.first[:tasks].first.keys).to be_include(:comments)
+    end
+  end
+
   describe 'POST #create' do
     context 'with valid attributes' do
       it 'creates a project' do
@@ -30,7 +50,7 @@ RSpec.describe ProjectsController, type: :controller do
 
   describe 'PATCH #update' do
     context 'with valid attributes' do
-      let!(:project) { create(:project, user_id: @user.id) }
+      let!(:project) { create(:project, user_id: subject.current_user.id) }
       let(:attributes) { attributes_for(:project, name: 'New project name') }
 
       it 'does not change projects count' do
@@ -46,7 +66,7 @@ RSpec.describe ProjectsController, type: :controller do
     end
 
     context 'with invalid attributes' do
-      let!(:project) { create(:project, user_id: @user.id) }
+      let!(:project) { create(:project, user_id: subject.current_user.id) }
       let(:attributes) { attributes_for(:invalid_project) }
 
       it 'does not change a project name' do
@@ -62,7 +82,7 @@ RSpec.describe ProjectsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:project) { create(:project, user_id: @user.id) }
+    let!(:project) { create(:project, user_id: subject.current_user.id) }
 
     it 'deletes a project' do
       expect { delete :destroy, id: project }.to change(Project, :count).by(-1)

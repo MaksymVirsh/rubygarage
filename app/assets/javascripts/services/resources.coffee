@@ -14,3 +14,7 @@ app.factory 'Task', ['$resource', ($resource) ->
     deadline: { params: { action: 'deadline' }, method: 'PUT' }
   }
 ]
+
+app.factory 'Comment', ['$resource', ($resource) ->
+  $resource '/comments/:id', { id: '@id' }
+]

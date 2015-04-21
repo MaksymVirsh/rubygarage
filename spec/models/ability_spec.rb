@@ -16,6 +16,8 @@ RSpec.describe Ability do
     let(:project_two) { create(:project, user: other) }
     let(:task_one) { create(:task, project: project_one) }
     let(:task_two) { create(:task, project: project_two) }
+    let(:comment_one) { create(:comment, task: task_one) }
+    let(:comment_two) { create(:comment, task: task_two) }
 
     it { should be_able_to :create, Project }
     it { should be_able_to :read, project_one, user: user }
@@ -38,5 +40,9 @@ RSpec.describe Ability do
     it { should_not be_able_to :sort, task_two, user: user }
     it { should be_able_to :deadline, task_one, user: user }
     it { should_not be_able_to :deadline, task_two, user: user }
+
+    it { should be_able_to :create, Comment }
+    it { should be_able_to :destroy, comment_one, user: user }
+    it { should_not be_able_to :destroy, comment_two, user: user }
   end
 end

@@ -5,12 +5,16 @@ body {
   background: #ba680e asset-url('bg-body.png') repeat-x 0 0;
 }
 
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-  display: none !important;
+
+
+textarea {
+  resize: none;
 }
 
-[ng-click], [data-ng-click], [x-ng-click] {
-  cursor: pointer;
+
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }
 
 

@@ -1,5 +1,5 @@
-angular.module('todo').controller 'TodoController', ['$rootScope', '$scope'
-    , 'Project', 'Task', ($rootScope, $scope, Project, Task) ->
+angular.module('todo').controller 'TodoController', ['$scope', 'Project'
+    , 'Task', 'Comment', ($scope, Project, Task, Comment) ->
 
   $scope.editing = no
   $scope.form = {}
@@ -88,7 +88,7 @@ angular.module('todo').controller 'TodoController', ['$rootScope', '$scope'
 
 
 
-  $scope.setActive = (task) ->
+  $scope.onTaskNameClick = (task) ->
     task.active = !task.active
 
     _($scope.projects).forEach (project) ->
@@ -123,19 +123,39 @@ angular.module('todo').controller 'TodoController', ['$rootScope', '$scope'
 
 
   $scope.taskDone = (task) ->
-    Task.done({ id: task.id }, { done: task.done }).$promise.catch (resp) ->
+    Task.done({ id: task.id }, { done: task.done }).$promise.catch (response) ->
       task.done = false
 
 
 
-  $scope.onDateTimeSet = (task, date) ->
-    Task.deadline({ id: task.id }, { deadline: date }).$promise.catch (resp) ->
+  $scope.setDeadline = (task, date) ->
+    Task.deadline({ id: task.id }, { deadline: date }).$promise.catch (response) ->
       task.deadline = null
 
 
 
   $scope.cancelDeadline = (task) ->
-    Task.deadline({ id: task.id }, { deadline: null }).$promise.then (resp) ->
-      task.deadline = resp.deadline
+    Task.deadline({ id: task.id }, { deadline: null }).$promise.then (response) ->
+      task.deadline = response.deadline
+
+
+
+  $scope.addCommentToTask = (task) ->
+    if task.comment.length
+      task.comments = [] if not task.comments
+
+      comment = new Comment
+      comment.text = task.comment
+      comment.task_id = task.id
+
+      Comment.save(comment).$promise.then (response) ->
+        task.comments.push response
+        task.comment = ''
+
+
+
+  $scope.deleteComment = (task, comment) ->
+    Comment.remove({ id: comment.id }).$promise.then ->
+      _.remove(task.comments, comment)
 
 ]

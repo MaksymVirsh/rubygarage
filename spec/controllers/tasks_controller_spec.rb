@@ -3,12 +3,14 @@ require 'rails_helper'
 RSpec.describe TasksController, type: :controller do
   sign_in_user
 
-  before :each do
-    request.headers["accept"] = 'application/json'
+  before(:each) { json_accept_headers }
+
+  it 'should have a current_user' do
+    expect(subject.current_user).to_not be_nil
   end
 
   describe 'POST #create' do
-    let!(:project) { create(:project, user_id: @user.id) }
+    let!(:project) { create(:project, user_id: subject.current_user.id) }
 
     context 'with valid attributes' do
       it 'creates a task' do
@@ -29,7 +31,7 @@ RSpec.describe TasksController, type: :controller do
 
   describe 'PATCH #update' do
     context 'with valide attributes' do
-      let!(:project) { create(:project, user_id: @user.id) }
+      let!(:project) { create(:project, user_id: subject.current_user.id) }
       let!(:task) { create(:task, project_id: project.id) }
 
       it 'updates task' do
@@ -46,7 +48,7 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:project) { create(:project, user_id: @user.id) }
+    let!(:project) { create(:project, user_id: subject.current_user.id) }
     let!(:task) { create(:task, project_id: project.id) }
 
     it 'deletes task' do
@@ -55,7 +57,7 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'PUT #done' do
-    let!(:project) { create(:project, user_id: @user.id) }
+    let!(:project) { create(:project, user_id: subject.current_user.id) }
     let!(:task) { create(:task, project_id: project.id) }
 
     it 'mark the task as done' do
@@ -67,7 +69,7 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'PUT #sort' do
-    let!(:project) { create(:project, user_id: @user.id) }
+    let!(:project) { create(:project, user_id: subject.current_user.id) }
     let!(:tasks) { create_list(:task, 2, project_id: project.id) }
 
     it 'change tasks priority' do
@@ -80,7 +82,7 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'PUT #deadline' do
-    let!(:project) { create(:project, user_id: @user.id) }
+    let!(:project) { create(:project, user_id: subject.current_user.id) }
     let!(:task) { create(:task, project_id: project.id) }
 
     it 'set deadline' do

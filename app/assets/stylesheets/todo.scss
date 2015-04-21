@@ -192,7 +192,7 @@
   .left-border {
     border-left: 1px solid #efdadf;
     margin: 0 0 0 5px;
-    padding: 4px 4px;
+    padding: 4px;
   }
 
   .task-name-text,
@@ -205,9 +205,12 @@
     width: 100%;
   }
 
+  .task-name-text {
+    cursor: pointer;
+  }
+
   .task-name-field {
     background: #f9fcbb;
-    resize: none;
     overflow: hidden;
     min-height: 10px;
   }
@@ -297,6 +300,35 @@
     width: inherit;
     height: inherit;
     position: absolute;
+  }
+}
+
+.comments-list {
+  margin: 20px 0;
+
+  .comment {
+    position: relative;
+    margin: 0 0 5px;
+    padding: 10px;
+    background-color: #d6d7b3;
+    border-radius: 3px;
+    color: #656555;
+  }
+
+  .comment-delete {
+    float: right;
+    display: inline-block;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 16px;
+    margin: 0 0 0 10px;
+    text-decoration: none;
+    color: #bdbd9e;
+
+    &:hover {
+      color: #c30;
+    }
   }
 }
 

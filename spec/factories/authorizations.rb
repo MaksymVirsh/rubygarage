@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :authorization do
     user nil
-    provider 'Custom provider'
-    uid 'uid1234567890'
+    provider { Faker::Company.name }
+    uid { Faker::Internet.password }
   end
 end

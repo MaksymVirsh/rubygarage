@@ -260,7 +260,35 @@ feature 'Projects' do
           expect(page).to_not have_css('.deadline')
           expect(page).to_not have_css('.cancel-deadline')
         end
+      end
 
+      feature 'Comments' do
+        background do
+          click_on_task
+        end
+
+        scenario 'has textarea and submit button', js: true do
+          expect(page).to have_css('.comment-field')
+          expect(page).to have_css('.submit-comment[disabled]')
+        end
+
+        scenario 'add comment', js: true do
+          comment = Faker::Lorem.paragraph
+          expect(page).to have_css('.submit-comment[disabled]')
+          find('.comment-field').native.send_key(comment)
+          expect(page).to_not have_css('.submit-comment[disabled]')
+          expect(page).to have_css('.submit-comment')
+          find('.submit-comment').trigger('click')
+          expect(page).to have_css('.comment', text: comment)
+        end
+
+        scenario 'delete comment', js: true do
+          comment = Faker::Lorem.paragraph
+          find('.comment-field').native.send_key(comment)
+          find('.submit-comment').trigger('click')
+          find('.comment .comment-delete').trigger('click')
+          expect(page).to_not have_css('.comment', text: comment)
+        end
       end
     end
   end

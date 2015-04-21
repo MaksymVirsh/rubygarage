@@ -1,11 +1,7 @@
 FactoryGirl.define do
-  sequence :task_name do |n|
-    "Task #{n}"
-  end
-
   factory :task do
     done false
-    name { generate :task_name }
+    name { Faker::Lorem.sentence }
   end
 
   factory :invalid_task, class: 'Task' do

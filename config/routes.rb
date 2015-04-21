@@ -27,4 +27,5 @@ Rails.application.routes.draw do
     put :deadline, on: :member
   end
 
+  resources :comments, defaults: { format: :json }, only: [:create, :destroy]
 end

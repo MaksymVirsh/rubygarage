@@ -20,12 +20,12 @@ gem 'autoprefixer-rails'
 
 # AngularJS
 gem 'rails-assets-angular'
+gem 'rails-assets-angular-bootstrap-datetimepicker'
 gem 'rails-assets-angular-resource'
 gem 'rails-assets-angular-animate'
 gem 'rails-assets-angular-loading-bar'
 gem 'rails-assets-restangular'
 gem 'rails-assets-ng-sortable'
-gem 'rails-assets-angular-bootstrap-datetimepicker'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -85,6 +85,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
+  gem 'faker'
   gem 'database_cleaner'
   gem 'fuubar'
 

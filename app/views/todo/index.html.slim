@@ -50,7 +50,7 @@
                 .left-border
                   .task-name-text [data-ng-if='!task.editing'
                     data-ng-class='{ "task-done": task.done }'
-                    data-ng-click='setActive(task)']
+                    data-ng-click='onTaskNameClick(task)']
                       ' {{task.name}}
                       span.label.label-danger.deadline data-ng-if='task.deadline'
                         ' {{ task.deadline | date: 'MMM d, y h:mm a' }}
@@ -63,6 +63,7 @@
                     .error data-ng-repeat='error in task.errors' {{ error | capitalize }}
 
                   .task-body data-ng-show='task.active'
+
                     .dropdown
                       button.btn.btn-default.btn-xs.dropdown-toggle.set-deadline id='dropdown-{{ task.id }}' data-toggle='dropdown'
                         span.glyphicon.glyphicon-time
@@ -78,8 +79,25 @@
                           '  Cancel
 
                       .dropdown-menu
-                        datetimepicker [data-ng-model='task.deadline' data-on-set-time='onDateTimeSet(task, newDate)'
+                        datetimepicker [data-ng-model='task.deadline'
+                          data-on-set-time='setDeadline(task, newDate)'
                           data-datetimepicker-config='{ dropdownSelector: "#dropdown-{{ task.id }}" }']
+
+                    .comments-list
+                      .comment data-ng-repeat='comment in task.comments'
+                        a.comment-delete [href='' ng-confirm-click='deleteComment(task, comment)'
+                          ng-confirm-message='Do you want to remove this comment?'] &times;
+                        ' {{ comment.text }}
+
+                    .form-group
+                      textarea.form-control.comment-field [data-ng-model='task.comment'
+                        name='comment' rows='3'
+                        placeholder='Start typing here to write comment...']
+
+                    .text-right
+                      a.btn.btn-default.btn-sm.submit-comment [href=''
+                        data-ng-disabled='!task.comment.length'
+                        data-ng-click='addCommentToTask(task)'] Submit comment
 
               td.task-control
                 .control

@@ -14,10 +14,10 @@
 //= require jquery_ujs
 //= require moment
 //= require angular
+//= require angular-bootstrap-datetimepicker
 //= require angular-animate
 //= require angular-resource
 //= require angular-loading-bar
-//= require angular-bootstrap-datetimepicker
 //= require ng-sortable
 //= require lodash
 //= require restangular
