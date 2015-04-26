@@ -335,13 +335,13 @@ DEPENDENCIES
   puma
   quiet_assets
   rails (= 4.2.0)
-  rails-assets-angular
-  rails-assets-angular-animate
-  rails-assets-angular-bootstrap-datetimepicker
-  rails-assets-angular-loading-bar
-  rails-assets-angular-resource
-  rails-assets-ng-sortable
-  rails-assets-restangular
+  rails-assets-angular!
+  rails-assets-angular-animate!
+  rails-assets-angular-bootstrap-datetimepicker!
+  rails-assets-angular-loading-bar!
+  rails-assets-angular-resource!
+  rails-assets-ng-sortable!
+  rails-assets-restangular!
   rails_12factor
   responders
   rspec-rails
