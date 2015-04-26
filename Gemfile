@@ -3,15 +3,15 @@ ruby '2.1.5'
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
-# Heroku
-gem 'rails_12factor', group: :production
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 gem 'responders'
 
 # PostgreSQL
 gem 'pg'
+
+# Puma web-server
+gem 'puma'
 
 # Use SCSS for stylesheets
 gem 'bootstrap-sass'
@@ -94,3 +94,6 @@ group :development, :test do
   gem 'poltergeist'
   gem 'launchy'
 end
+
+# Heroku
+gem 'rails_12factor', group: :production

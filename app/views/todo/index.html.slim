@@ -21,7 +21,8 @@
         .control
           ul.project-control
             li: a.edit.edit-project href='' data-ng-click='editProject(project)'
-            li: a.delete.delete-project href='' data-ng-click='deleteProject(project)'
+            li: a.delete.delete-project [href='' data-ng-confirm-click='deleteProject(project)'
+              data-ng-confirm-message='Do you want to remove this project?']
 
       .create-task-header data-ng-if='project.id'
         .create-task-in.input-group
@@ -65,7 +66,7 @@
                   .task-body data-ng-show='task.active'
 
                     .dropdown
-                      button.btn.btn-default.btn-xs.dropdown-toggle.set-deadline id='dropdown-{{ task.id }}' data-toggle='dropdown'
+                      button.btn.btn-default.btn-xs.dropdown-toggle.set-deadline id='dropdown-{{task.id}}' data-toggle='dropdown'
                         span.glyphicon.glyphicon-time
                         span data-ng-if='!task.deadline'  Set deadline
                         span data-ng-if='task.deadline'  Change deadline
@@ -85,8 +86,8 @@
 
                     .comments-list
                       .comment data-ng-repeat='comment in task.comments'
-                        a.comment-delete [href='' ng-confirm-click='deleteComment(task, comment)'
-                          ng-confirm-message='Do you want to remove this comment?'] &times;
+                        a.comment-delete [href='' data-ng-confirm-click='deleteComment(task, comment)'
+                          data-ng-confirm-message='Do you want to remove this comment?'] &times;
                         ' {{ comment.text }}
 
                     .form-group
@@ -104,7 +105,8 @@
                   ul
                     li: a.sort.sort-task href='' data-as-sortable-item-handle=''
                     li: a.edit.edit-task href='' data-ng-click='editTask(task)'
-                    li: a.delete.delete-task href='' data-ng-click='deleteTask(task)'
+                    li: a.delete.delete-task [href='' data-ng-confirm-click='deleteTask(task)'
+                      data-ng-confirm-message='Do you want to remove this task?']
 
   .row
     .col-xs-12.footer
