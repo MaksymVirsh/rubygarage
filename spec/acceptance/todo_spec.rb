@@ -15,6 +15,7 @@ feature 'Projects' do
   background do
     login_as_user user
     visit root_path
+    sleep 0.1
   end
 
   scenario 'presence of a button "add todo list"', js: true do

@@ -1,3 +1,2 @@
-# ProjectsHelper
 module ProjectsHelper
 end

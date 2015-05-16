@@ -1,5 +1,5 @@
 angular.module('todo').controller 'TodoController', ['$scope', 'Project'
-    , 'Task', 'Comment', ($scope, Project, Task, Comment) ->
+    , 'Task', 'Comment', 'Upload', ($scope, Project, Task, Comment, Upload) ->
 
   $scope.editing = no
   $scope.form = {}
@@ -157,5 +157,21 @@ angular.module('todo').controller 'TodoController', ['$scope', 'Project'
   $scope.deleteComment = (task, comment) ->
     Comment.remove({ id: comment.id }).$promise.then ->
       _.remove(task.comments, comment)
+
+
+  #$scope.upload = (files) ->
+    #if files && files.length
+      #for file, index in files
+        #console.log file
+        #Upload.upload
+          #url: 'upload/url'
+          #fields:
+            #username: $scope.username
+          #file: file
+        #.progress (evt) ->
+          #progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
+          #console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name)
+        #.success (data, status, headers, config) ->
+          #console.log('file ' + config.file.name + 'uploaded. Response: ' + data)
 
 ]

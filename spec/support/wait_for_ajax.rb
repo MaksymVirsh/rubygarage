@@ -1,4 +1,3 @@
-# WaitForAjax
 module WaitForAjax
   def wait_for_ajax(max_wait_time = 30)
     Timeout.timeout(max_wait_time) { sleep 0.1 while pending_ajax_requests? }

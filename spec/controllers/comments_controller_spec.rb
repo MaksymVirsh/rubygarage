@@ -15,17 +15,17 @@ RSpec.describe CommentsController, type: :controller do
   describe 'POST #create' do
     context 'with valid attributes' do
       it 'adds a comment' do
-        expect do
+        expect{
           post :create, comment: attributes_for(:comment, task_id: task.id)
-        end.to change(Comment, :count).by(1)
+        }.to change(Comment, :count).by(1)
       end
     end
 
     context 'with invalid attributes' do
       it 'does not create a comment' do
-        expect do
+        expect{
           post :create, comment: attributes_for(:invalid_comment)
-        end.to_not change(Comment, :count)
+        }.to_not change(Comment, :count)
       end
 
       it 'returns an error' do

@@ -95,6 +95,32 @@
                         name='comment' rows='3'
                         placeholder='Start typing here to write comment...']
 
+                    .form-group
+                      button.btn.btn-default.btn-xs [ngf-select=''
+                        ngf-change='upload($files)']  Attach file
+
+                      ul
+                        li.sel-file.ng-binding.ng-scope ng-repeat="f in files"
+                          span.progress ng-show="f.progress >= 0"
+                            .ng-binding style="width:100%" 100%
+                            /<button class="button ng-hide" ng-click="f.upload.abort();f.upload.aborted=true" ng-show="f.upload != null &amp;&amp; f.progress < 100 &amp;&amp; !f.upload.aborted">Abort</button>
+                            /2015.05.13-2000-0001.jpg - size: 912422B - type: image/jpeg
+                            /<a ng-show="f.result" href="javascript:void(0)" ng-click="f.showDetail = !f.showDetail" class="">details</a>
+                            /<div ng-show="f.showDetail" class="ng-hide">
+                              /<br>
+                              /<div data-ng-show="f.result.result == null" class="ng-binding ng-hide">{"result":[{"fieldName":"myFile","name":"2015.05.13-2000-0001.jpg","size":"912422"}],"requestHeaders":{"Host":"angular-file-upload-cors-srv.appspot.com","Accept":"application/json, text/plain, */*","Accept-Language":"ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4","Cache-Control":"no-cache","Content-Length":"912622","Content-Type":"multipart/form-data; boundary=----WebKitFormBoundaryOAyCS9hIposgzzK8","my-header":"my-header-value","origin":"https://angular-file-upload.appspot.com","Pragma":"no-cache","Referer":"https://angular-file-upload.appspot.com/","User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2394.0 Safari/537.36","X-AppEngine-Country":"UA","X-AppEngine-Region":"12","X-AppEngine-City":"dnepropetrovsk","X-AppEngine-CityLatLong":"48.464717,35.046183"}}</div>
+                              /<ul>
+                                /<!-- ngRepeat: item in f.result.result --><li ng-repeat="item in f.result.result" class="ng-scope">
+                                  /<div data-ng-show="item.name" class="ng-binding">file name: 2015.05.13-2000-0001.jpg</div>
+                                  /<div data-ng-show="item.fieldName" class="ng-binding">name: myFile</div>
+                                  /<div data-ng-show="item.size" class="ng-binding">size on the serve: 912422</div>
+                                  /<div data-ng-show="item.value" class="ng-binding ng-hide">value: </div>
+                                /</li><!-- end ngRepeat: item in f.result.result -->
+                              /</ul>
+                              /<div data-ng-show="f.result.requestHeaders" class="reqh ng-binding">request headers: {"Host":"angular-file-upload-cors-srv.appspot.com","Accept":"application/json, text/plain, */*","Accept-Language":"ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4","Cache-Control":"no-cache","Content-Length":"912622","Content-Type":"multipart/form-data; boundary=----WebKitFormBoundaryOAyCS9hIposgzzK8","my-header":"my-header-value","origin":"https://angular-file-upload.appspot.com","Pragma":"no-cache","Referer":"https://angular-file-upload.appspot.com/","User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2394.0 Safari/537.36","X-AppEngine-Country":"UA","X-AppEngine-Region":"12","X-AppEngine-City":"dnepropetrovsk","X-AppEngine-CityLatLong":"48.464717,35.046183"}</div>
+                            /</div>
+                          /</li>
+
                     .text-right
                       a.btn.btn-default.btn-sm.submit-comment [href=''
                         data-ng-disabled='!task.comment.length'

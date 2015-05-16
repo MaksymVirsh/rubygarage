@@ -28,17 +28,17 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'POST #create' do
     context 'with valid attributes' do
       it 'creates a project' do
-        expect do
+        expect{
           post :create, project: attributes_for(:project)
-        end.to change(Project, :count).by(1)
+        }.to change(Project, :count).by(1)
       end
     end
 
     context 'with invalid attributes' do
       it 'does not create a project' do
-        expect do
+        expect{
           post :create, project: attributes_for(:invalid_project)
-        end.to_not change(Project, :count)
+        }.to_not change(Project, :count)
       end
 
       it 'returns an error' do
@@ -54,9 +54,9 @@ RSpec.describe ProjectsController, type: :controller do
       let(:attributes) { attributes_for(:project, name: 'New project name') }
 
       it 'does not change projects count' do
-        expect do
+        expect{
           patch :update, id: project, project: attributes
-        end.to_not change(Project, :count)
+        }.to_not change(Project, :count)
       end
 
       it 'changes a project name' do

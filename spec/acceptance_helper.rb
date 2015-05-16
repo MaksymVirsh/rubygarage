@@ -26,33 +26,16 @@ end
 
 RSpec.configure do |config|
   # Capybara driver
+  Capybara.register_driver :poltergeist do |app|
+    cnf = { debug: false, window_size: [1440, 900] }
+    Capybara::Poltergeist::Driver.new(app, cnf)
+  end
   Capybara.javascript_driver = :poltergeist
 
   # Include acceptance tests helpers
   config.include AcceptanceHelpers, type: :feature
 
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = false
-
-  # Database Cleaner
-  config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.before(:each, js: false) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.start
-  end
-
-  config.before(:each, js: true) do
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.start
-  end
-
   config.after(:each) do
-    DatabaseCleaner.clean
     Warden.test_reset!
   end
 end

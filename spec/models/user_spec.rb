@@ -12,7 +12,6 @@ RSpec.describe User, type: :model do
     context 'when user already has authorization' do
       it 'returns the user' do
         user.authorizations.create(provider: 'facebook', uid: '123456')
-
         expect(User.find_for_oauth(auth)).to eq user
       end
     end
@@ -30,16 +29,12 @@ RSpec.describe User, type: :model do
         end
 
         it 'creates authorization for user' do
-          expected = expect do
-            User.find_for_oauth(auth)
-          end
-
+          expected = expect { User.find_for_oauth(auth) }
           expected.to change(user.authorizations, :count).by(1)
         end
 
         it 'creates authorization with provider and uid' do
           authorization = User.find_for_oauth(auth).authorizations.first
-
           expect(authorization.provider).to eq auth.provider
           expect(authorization.uid).to eq auth.uid
         end
@@ -66,19 +61,16 @@ RSpec.describe User, type: :model do
 
         it 'fills user email' do
           user = User.find_for_oauth(auth)
-
           expect(user.email).to eq auth.info.email
         end
 
         it 'creates authorization for user' do
           user = User.find_for_oauth(auth)
-
           expect(user.authorizations).to_not be_empty
         end
 
         it 'creates authorization with provider and uid' do
           authorization = User.find_for_oauth(auth).authorizations.first
-
           expect(authorization.provider).to eq auth.provider
           expect(authorization.uid).to eq auth.uid
         end

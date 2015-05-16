@@ -1,4 +1,3 @@
-# Project
 class Project < ActiveRecord::Base
   belongs_to :user
   has_many :tasks, -> { order 'tasks.position' }, dependent: :destroy

@@ -14,17 +14,17 @@ RSpec.describe TasksController, type: :controller do
 
     context 'with valid attributes' do
       it 'creates a task' do
-        expect do
+        expect{
           post :create, task: attributes_for(:task, project_id: project.id)
-        end.to change(Task, :count).by(1)
+        }.to change(Task, :count).by(1)
       end
     end
 
     context 'with invalid attributes' do
       it 'does not create a task' do
-        expect do
+        expect{
           post :create, task: attributes_for(:invalid_task, project_id: project.id)
-        end.to_not change(Task, :count)
+        }.to_not change(Task, :count)
       end
     end
   end
@@ -35,9 +35,9 @@ RSpec.describe TasksController, type: :controller do
       let!(:task) { create(:task, project_id: project.id) }
 
       it 'updates task' do
-        expect do
+        expect{
           patch :update, id: task, task: attributes_for(:task)
-        end.to_not change(Task, :count)
+        }.to_not change(Task, :count)
       end
 
       it 'return object json' do

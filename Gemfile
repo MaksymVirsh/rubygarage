@@ -1,5 +1,3 @@
-ruby '2.2.1'
-
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -26,6 +24,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-loading-bar'
   gem 'rails-assets-restangular'
   gem 'rails-assets-ng-sortable'
+  gem 'rails-assets-ng-file-upload'
 end
 
 # Use Uglifier as compressor for JavaScript assets
@@ -88,7 +87,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'database_cleaner'
-  gem 'fuubar'
+  gem 'fuubar', require: false
 
   # Acceptance
   gem 'capybara'

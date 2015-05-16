@@ -1,3 +1,2 @@
-# TasksHelper
 module TasksHelper
 end

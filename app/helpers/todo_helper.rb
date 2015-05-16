@@ -1,3 +1,2 @@
-# TodoHelper
 module TodoHelper
 end

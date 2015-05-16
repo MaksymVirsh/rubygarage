@@ -1,4 +1,3 @@
-# User
 class User < ActiveRecord::Base
   has_many :authorizations
   has_many :projects

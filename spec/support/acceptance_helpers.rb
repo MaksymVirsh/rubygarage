@@ -1,4 +1,3 @@
-# AcceptanceHelpers
 module AcceptanceHelpers
   def click_create_project
     find('.create-project').click
