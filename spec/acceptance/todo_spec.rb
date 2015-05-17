@@ -191,6 +191,16 @@ feature 'Projects' do
       expect(page).to_not have_css('.task-name .task-name-field')
     end
 
+    scenario 'cancel edit when press Esc', js: true do
+      input_task_name 'Task 1'
+      click_add_task_button
+      hover_task
+      click_task_edit
+      expect(page).to have_css('.task-name .task-name-field')
+      task_name_field.native.send_key(:Escape)
+      expect(page).to_not have_css('.task-name .task-name-field')
+    end
+
     scenario 'edit task with empty name', js: true do
       input_task_name 'Task 1'
       press_enter_on_task_name
