@@ -1,6 +1,8 @@
 angular.module('app').controller 'projectCtrl', [ '$scope', 'ProjectResource'
     , ($scope, ProjectResource) ->
 
+  $scope.editing = no
+
   this.projects = do ProjectResource.query
 
   this.create = ->
