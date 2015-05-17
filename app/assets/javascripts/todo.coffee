@@ -9,7 +9,7 @@ if window.location.hash and window.location.hash == '#_=_'
 #                                 Application                                  #
 ################################################################################
 
-app = angular.module 'todo', ['angular-loading-bar', 'ui.sortable', 'elastic'
+app = angular.module 'app', ['angular-loading-bar', 'ui.sortable', 'elastic'
   , 'ui.bootstrap.datetimepicker', 'ngResource', 'ngFileUpload']
 
 app.config ['$httpProvider', ($httpProvider) ->

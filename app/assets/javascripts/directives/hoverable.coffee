@@ -1,4 +1,4 @@
-angular.module('todo').directive 'hoverable', ->
+angular.module('app').directive 'hoverable', ->
   restrict: 'A'
   link: (scope, element, attrs) ->
     watcher = (watchScope) ->

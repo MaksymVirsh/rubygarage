@@ -130,6 +130,12 @@ feature 'Projects' do
     expect(page).to have_css('.create-task-header')
   end
 
+  scenario 'cancel edit when press Esc', js: true do
+    click_create_project
+    project_name_field.native.send_key(:Escape)
+    expect(page).to_not have_css('.project-form')
+  end
+
   feature 'Tasks' do
     background do
       click_create_project
@@ -268,18 +274,24 @@ feature 'Projects' do
           click_on_task
         end
 
+        given(:comment) { Faker::Lorem.paragraph }
+
         scenario 'has textarea and submit button', js: true do
           expect(page).to have_css('.comment-field')
           expect(page).to have_css('.submit-comment[disabled]')
         end
 
         scenario 'add comment', js: true do
-          comment = Faker::Lorem.paragraph
           expect(page).to have_css('.submit-comment[disabled]')
           find('.comment-field').native.send_key(comment)
           expect(page).to_not have_css('.submit-comment[disabled]')
           expect(page).to have_css('.submit-comment')
           find('.submit-comment').trigger('click')
+          expect(page).to have_css('.comment', text: comment)
+        end
+
+        scenario 'add comment on press Enter', js: true do
+          find('.comment-field').native.send_key(comment, :Enter)
           expect(page).to have_css('.comment', text: comment)
         end
 

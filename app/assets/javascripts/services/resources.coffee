@@ -1,12 +1,12 @@
-app = angular.module('todo')
+app = angular.module('app')
 
-app.factory 'Project', ['$resource', ($resource) ->
+app.factory 'ProjectResource', ['$resource', ($resource) ->
   $resource '/projects/:id', { id: '@id' }, {
     update: { method: 'PATCH' }
   }
 ]
 
-app.factory 'Task', ['$resource', ($resource) ->
+app.factory 'TaskResource', ['$resource', ($resource) ->
   $resource '/tasks/:id/:action', { id: '@id' }, {
     update:   { method: 'PATCH' },
     done:     { params: { action: 'done' }, method: 'PUT' }
@@ -15,6 +15,6 @@ app.factory 'Task', ['$resource', ($resource) ->
   }
 ]
 
-app.factory 'Comment', ['$resource', ($resource) ->
+app.factory 'CommentResource', ['$resource', ($resource) ->
   $resource '/comments/:id', { id: '@id' }
 ]

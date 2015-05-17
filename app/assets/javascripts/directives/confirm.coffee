@@ -4,7 +4,7 @@
 #   ng-confirm-message='Are you sure?'
 #   ng-confirm-click='action()'
 
-angular.module('todo').directive 'ngConfirmClick', [ ->
+angular.module('app').directive 'ngConfirmClick', [ ->
   restrict: 'A'
   link: (scope, element, attrs) ->
     element.bind 'click', ->

@@ -2,141 +2,174 @@
   | Simple TODO List
   .small from Ruby Garage
 
-#todo-controller data-ng-controller='TodoController' data-ng-cloak=''
+.todo-controller data-ng-controller='todoCtrl as todoCtrl' data-ng-cloak=''
 
-  .projects data-ng-repeat='project in projects'
-    form.project-form name='form.{{$index}}' novalidate=''
-      .project-header data-hoverable=''
-        .project-field
+  .project-controller data-ng-controller='projectCtrl as projectCtrl'
+    .projects data-ng-repeat='project in projectCtrl.projects'
 
-          .project-error data-ng-show='project.errors.length'
-            .error data-ng-repeat='error in project.errors' {{ error | capitalize }}
+      .project
+        .project-header data-hoverable=''
 
-          h2 data-ng-if='!project.editing'
-            | {{project.name}}
-          input.project-name-field [name='name' type='text' autocomplete='off'
-            data-ng-if='project.editing' data-ng-model='project.name'
-            data-ng-enter='saveProject(project, $index)' data-auto-focus='' required='']
+          .project-field
+            .project-error data-ng-show='project.errors.length'
+              .error data-ng-repeat='error in project.errors' {{ error | capitalize }}
 
-        .control
-          ul.project-control
-            li: a.edit.edit-project href='' data-ng-click='editProject(project)'
-            li: a.delete.delete-project [href='' data-ng-confirm-click='deleteProject(project)'
-              data-ng-confirm-message='Do you want to remove this project?']
+            h2 data-ng-if='!project.editing'
+              | {{project.name}}
 
-      .create-task-header data-ng-if='project.id'
-        .create-task-in.input-group
+            form.project-form name='project.form' data-ng-if='project.editing' novalidate=''
+              input.project-name-field [
+                name='name'
+                type='text'
+                autocomplete='off'
+                required=''
+                data-ng-model='project.name'
+                data-ng-enter='projectCtrl.save(project)'
+                data-ng-blur='projectCtrl.save(project)'
+                data-escapable=''
+                data-auto-focus='' ]
 
-          input.create-task-name-field.form-control [name='task_name' type='text'
-            autocomplete='off' data-ng-model='project.task_name'
-            data-ng-enter='addTask(project, $index)'
-            placeholder='Start typing here to create a task...' required='']
-          .input-group-btn
-            a.add-task.btn.btn-success [href='' data-ng-disabled='!project.task_name'
-              data-ng-click='addTask(project, $index)'] Add task
+          .control
+            ul.project-control
+              li: a.edit.edit-project href='' data-ng-click='projectCtrl.edit(project)'
+              li: a.delete.delete-project [
+                href=''
+                data-ng-confirm-click='projectCtrl.delete(project)'
+                data-ng-confirm-message='Do you want to remove this project?' ]
 
-      .task-list
-        table.tasks
-          tbody data-as-sortable='dragControlListeners' data-ng-model='project.tasks'
+        .task-controller data-ng-controller='taskCtrl as taskCtrl'
+          .create-task-header data-ng-if='project.id'
 
-            tr.task-item [data-ng-repeat='task in project.tasks'
-              data-ng-class='{ "active": task.active }'
-              data-as-sortable-item='' data-hoverable='']
+            form.create-task-form name='project.task_form'
+              .create-task-in.input-group
+                input.create-task-name-field.form-control [
+                  name='task_name'
+                  type='text'
+                  autocomplete='off'
+                  required=''
+                  data-ng-model='project.task_name'
+                  data-ng-enter='taskCtrl.add(project)'
+                  placeholder='Start typing here to create a task...' ]
 
-              td.task-status
-                input [type='checkbox' name='status' data-ng-model='task.done'
-                  data-ng-change='taskDone(task)']
+                .input-group-btn
+                  a.add-task.btn.btn-success [
+                    href=''
+                    data-ng-disabled='!project.task_name'
+                    data-ng-click='taskCtrl.add(project)' ] Add task
 
-              td.task-name
-                .left-border
-                  .task-name-text [data-ng-if='!task.editing'
-                    data-ng-class='{ "task-done": task.done }'
-                    data-ng-click='onTaskNameClick(task)']
-                      ' {{task.name}}
-                      span.label.label-danger.deadline data-ng-if='task.deadline'
-                        ' {{ task.deadline | date: 'MMM d, y h:mm a' }}
-                  textarea.task-name-field [name='name' rows='1'
-                    data-ng-if='task.editing' data-ng-model='task.name'
-                    data-ng-enter='saveTask(task)' data-elastic=''
-                    data-auto-focus='' required='']
+          .task-list
+            table.tasks
+              tbody data-as-sortable='taskCtrl.dragControlListeners' data-ng-model='project.tasks'
 
-                  .task-error data-ng-show='task.errors.length'
-                    .error data-ng-repeat='error in task.errors' {{ error | capitalize }}
+                tr.task-item [
+                  data-ng-repeat='task in project.tasks'
+                  data-ng-class='{ "active": task.active }'
+                  data-as-sortable-item=''
+                  data-hoverable='' ]
 
-                  .task-body data-ng-show='task.active'
+                  td.task-status
+                    input [
+                      type='checkbox'
+                      name='status'
+                      data-ng-model='task.done'
+                      data-ng-change='taskCtrl.setDone(task)' ]
 
-                    .dropdown
-                      button.btn.btn-default.btn-xs.dropdown-toggle.set-deadline id='dropdown-{{task.id}}' data-toggle='dropdown'
-                        span.glyphicon.glyphicon-time
-                        span data-ng-if='!task.deadline'  Set deadline
-                        span data-ng-if='task.deadline'  Change deadline
+                  td.task-name
+                    .left-border
+                      .task-name-text [
+                        data-ng-if='!task.editing'
+                        data-ng-class='{ "task-done": task.done }'
+                        data-ng-click='taskCtrl.onNameClick(task)' ]
+                          ' {{task.name}}
+                          span.label.label-danger.deadline data-ng-if='task.deadline'
+                            ' {{ task.deadline | date: 'MMM d, y h:mm a' }}
 
-                      span data-ng-if='task.deadline'
-                        '  or
+                      textarea.task-name-field [
+                        name='name'
+                        rows='1'
+                        data-ng-if='task.editing'
+                        data-ng-model='task.name'
+                        data-ng-enter='taskCtrl.save(task)'
+                        data-ng-blur='taskCtrl.save(task)'
+                        data-elastic=''
+                        data-auto-focus=''
+                        required='' ]
 
-                        button.btn.btn-default.btn-xs.cancel-deadline [type='button'
-                          data-ng-click='cancelDeadline(task)']
-                          span.glyphicon.glyphicon-remove
-                          '  Cancel
+                      .task-error data-ng-show='task.errors.length'
+                        .error data-ng-repeat='error in task.errors' {{ error | capitalize }}
 
-                      .dropdown-menu
-                        datetimepicker [data-ng-model='task.deadline'
-                          data-on-set-time='setDeadline(task, newDate)'
-                          data-datetimepicker-config='{ dropdownSelector: "#dropdown-{{ task.id }}" }']
+                      .task-body data-ng-show='task.active'
 
-                    .comments-list
-                      .comment data-ng-repeat='comment in task.comments'
-                        a.comment-delete [href='' data-ng-confirm-click='deleteComment(task, comment)'
-                          data-ng-confirm-message='Do you want to remove this comment?'] &times;
-                        ' {{ comment.text }}
+                        .dropdown
+                          button.btn.btn-default.btn-xs.dropdown-toggle.set-deadline [
+                            id='dropdown-{{task.id}}'
+                            data-toggle='dropdown' ]
 
-                    .form-group
-                      textarea.form-control.comment-field [data-ng-model='task.comment'
-                        name='comment' rows='3'
-                        placeholder='Start typing here to write comment...']
+                            span.glyphicon.glyphicon-time
+                            span data-ng-if='!task.deadline'  Set deadline
+                            span data-ng-if='task.deadline'  Change deadline
 
-                    .form-group
-                      button.btn.btn-default.btn-xs [ngf-select=''
-                        ngf-change='upload($files)']  Attach file
+                          span data-ng-if='task.deadline'
+                            '  or
 
+                            button.btn.btn-default.btn-xs.cancel-deadline [
+                              type='button'
+                              data-ng-click='taskCtrl.setDeadline(task, null)' ]
+
+                              span.glyphicon.glyphicon-remove
+                              '  Cancel
+
+                          .dropdown-menu
+                            datetimepicker [
+                              data-ng-model='task.deadline'
+                              data-on-set-time='taskCtrl.setDeadline(task, newDate)'
+                              data-datetimepicker-config='{ dropdownSelector: "#dropdown-{{ task.id }}" }' ]
+
+                        .comment-controller data-ng-controller='commentCtrl as commentCtrl'
+                          .comments-list
+                            .comment data-ng-repeat='comment in task.comments'
+                              a.comment-delete [
+                                href=''
+                                data-ng-confirm-click='commentCtrl.delete(task, comment)'
+                                data-ng-confirm-message='Do you want to remove this comment?' ] &times;
+
+                              ' {{ comment.text }}
+
+                          .form-group
+                            textarea.form-control.comment-field [
+                              data-ng-model='task.comment'
+                              name='comment'
+                              rows='3'
+                              data-ng-enter='commentCtrl.add(task)'
+                              placeholder='Start typing here to write comment...' ]
+
+                          /.form-group
+                            /button.btn.btn-default.btn-xs [
+                              /ngf-select=''
+                              /ngf-change='upload($files)' ] Attach file
+
+                          .text-right
+                            a.btn.btn-default.btn-sm.submit-comment [
+                              href=''
+                              data-ng-disabled='!task.comment.length'
+                              data-ng-click='commentCtrl.add(task)' ] Submit comment
+
+                  td.task-control
+                    .control
                       ul
-                        li.sel-file.ng-binding.ng-scope ng-repeat="f in files"
-                          span.progress ng-show="f.progress >= 0"
-                            .ng-binding style="width:100%" 100%
-                            /<button class="button ng-hide" ng-click="f.upload.abort();f.upload.aborted=true" ng-show="f.upload != null &amp;&amp; f.progress < 100 &amp;&amp; !f.upload.aborted">Abort</button>
-                            /2015.05.13-2000-0001.jpg - size: 912422B - type: image/jpeg
-                            /<a ng-show="f.result" href="javascript:void(0)" ng-click="f.showDetail = !f.showDetail" class="">details</a>
-                            /<div ng-show="f.showDetail" class="ng-hide">
-                              /<br>
-                              /<div data-ng-show="f.result.result == null" class="ng-binding ng-hide">{"result":[{"fieldName":"myFile","name":"2015.05.13-2000-0001.jpg","size":"912422"}],"requestHeaders":{"Host":"angular-file-upload-cors-srv.appspot.com","Accept":"application/json, text/plain, */*","Accept-Language":"ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4","Cache-Control":"no-cache","Content-Length":"912622","Content-Type":"multipart/form-data; boundary=----WebKitFormBoundaryOAyCS9hIposgzzK8","my-header":"my-header-value","origin":"https://angular-file-upload.appspot.com","Pragma":"no-cache","Referer":"https://angular-file-upload.appspot.com/","User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2394.0 Safari/537.36","X-AppEngine-Country":"UA","X-AppEngine-Region":"12","X-AppEngine-City":"dnepropetrovsk","X-AppEngine-CityLatLong":"48.464717,35.046183"}}</div>
-                              /<ul>
-                                /<!-- ngRepeat: item in f.result.result --><li ng-repeat="item in f.result.result" class="ng-scope">
-                                  /<div data-ng-show="item.name" class="ng-binding">file name: 2015.05.13-2000-0001.jpg</div>
-                                  /<div data-ng-show="item.fieldName" class="ng-binding">name: myFile</div>
-                                  /<div data-ng-show="item.size" class="ng-binding">size on the serve: 912422</div>
-                                  /<div data-ng-show="item.value" class="ng-binding ng-hide">value: </div>
-                                /</li><!-- end ngRepeat: item in f.result.result -->
-                              /</ul>
-                              /<div data-ng-show="f.result.requestHeaders" class="reqh ng-binding">request headers: {"Host":"angular-file-upload-cors-srv.appspot.com","Accept":"application/json, text/plain, */*","Accept-Language":"ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4","Cache-Control":"no-cache","Content-Length":"912622","Content-Type":"multipart/form-data; boundary=----WebKitFormBoundaryOAyCS9hIposgzzK8","my-header":"my-header-value","origin":"https://angular-file-upload.appspot.com","Pragma":"no-cache","Referer":"https://angular-file-upload.appspot.com/","User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2394.0 Safari/537.36","X-AppEngine-Country":"UA","X-AppEngine-Region":"12","X-AppEngine-City":"dnepropetrovsk","X-AppEngine-CityLatLong":"48.464717,35.046183"}</div>
-                            /</div>
-                          /</li>
+                        li: a.sort.sort-task href='' data-as-sortable-item-handle=''
+                        li: a.edit.edit-task href='' data-ng-click='taskCtrl.edit(task)'
+                        li: a.delete.delete-task [
+                          href=''
+                          data-ng-confirm-click='taskCtrl.delete(task)'
+                          data-ng-confirm-message='Do you want to remove this task?' ]
 
-                    .text-right
-                      a.btn.btn-default.btn-sm.submit-comment [href=''
-                        data-ng-disabled='!task.comment.length'
-                        data-ng-click='addCommentToTask(task)'] Submit comment
+    .row
+      .col-xs-12.footer
+        a.btn.btn-lg.btn-primary.create-project [
+          href=''
+          data-ng-disabled='editing'
+          data-ng-click='projectCtrl.create()' ]
 
-              td.task-control
-                .control
-                  ul
-                    li: a.sort.sort-task href='' data-as-sortable-item-handle=''
-                    li: a.edit.edit-task href='' data-ng-click='editTask(task)'
-                    li: a.delete.delete-task [href='' data-ng-confirm-click='deleteTask(task)'
-                      data-ng-confirm-message='Do you want to remove this task?']
-
-  .row
-    .col-xs-12.footer
-      a.create-project.btn.btn-lg.btn-primary [href='' data-ng-click='addProject()'
-        data-ng-disabled='editing']
-        span.glyphicon.glyphicon-plus
-        |  Add TODO List
+          span.glyphicon.glyphicon-plus
+          '  Add TODO List
