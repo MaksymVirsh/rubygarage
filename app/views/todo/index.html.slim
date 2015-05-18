@@ -100,7 +100,7 @@
                     .task-body data-ng-show='task.active'
 
                       .dropdown
-                        button.btn.btn-default.btn-xs.dropdown-toggle.set-deadline [
+                        button.btn.btn-primary.btn-xs.dropdown-toggle.set-deadline [
                           id='dropdown-{{task.id}}'
                           data-toggle='dropdown' ]
 
@@ -111,7 +111,7 @@
                         span data-ng-if='task.deadline'
                           '  or
 
-                          button.btn.btn-default.btn-xs.cancel-deadline [
+                          button.btn.btn-danger.btn-xs.cancel-deadline [
                             type='button'
                             data-ng-click='taskCtrl.setDeadline(task, null)' ]
 
@@ -138,6 +138,7 @@
                               li data-ng-repeat='attachment in comment.attachments'
                                 span.glyphicon.glyphicon-file
                                 a href='{{attachment.file.url}}' target='_blank' {{attachment.file.name}}
+                                '  ({{attachment.file.size | bytes}})
 
                         .form-group
                           textarea.form-control.comment-field [
@@ -147,21 +148,25 @@
                             data-ng-enter='commentCtrl.add(task)'
                             placeholder='Start typing here to write comment...' ]
 
-                        .form-group
-                          .text-right.pull-right
-                            button.btn.btn-default.btn-sm.submit-comment [
-                              data-ng-disabled='!task.comment.length'
-                              data-ng-click='commentCtrl.add(task)' ] Submit comment
+                        .text-right.pull-right
+                          button.btn.btn-success.btn-sm.submit-comment [
+                            data-ng-disabled='!task.comment.length || uploading'
+                            data-ng-click='commentCtrl.add(task)' ] Submit comment
 
-                          button.btn.btn-default.btn-sm.attach-file [
-                            ngf-select=''
-                            ngf-change='upload($files)'
-                            ngf-multiple='true' ] Attach file
+                        button.btn.btn-primary.btn-sm.attach-file [
+                          data-ng-disabled='uploading'
+                          ngf-select=''
+                          ngf-change='upload($files)'
+                          ngf-multiple='true' ] Attach file
 
-                          ul.attachments
-                            li ng-repeat='attachment in attachments'
-                              span.glyphicon.glyphicon-file
-                              a href='{{attachment.file.url}}' target='_blank' {{attachment.file.name}}
+                        span.loading data-ng-if='uploading'
+
+                        ul.attachments data-ng-if='attachments.length'
+                          li ng-repeat='attachment in attachments'
+                            span.glyphicon.glyphicon-file
+                            a href='{{attachment.file.url}}' target='_blank' {{attachment.file.name}}
+                            '  ({{attachment.file.size | bytes}})
+                            a href='' data-ng-click='commentCtrl.removeAttachment(attachment)' remove
 
                 td.task-control
                   .control

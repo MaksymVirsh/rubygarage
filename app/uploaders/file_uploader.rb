@@ -11,7 +11,8 @@ class FileUploader < CarrierWave::Uploader::Base
   def serializable_hash
     {
       url: self.url,
-      name: self.file.identifier
+      name: self.file.identifier,
+      size: self.file.size
     }
   end
 end

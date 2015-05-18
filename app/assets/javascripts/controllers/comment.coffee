@@ -24,18 +24,26 @@ angular.module('app').controller 'commentCtrl', [ '$scope', 'CommentResource'
 
   $scope.upload = (files)->
     if files and files.length
+      uploaded_count = 0
+      $scope.uploading = yes
+
       for file, index in files
         Upload.upload
           url: '/attachments'
           file: file
-        .progress (event) ->
-          progressPercentage = parseInt(100.0 * event.loaded / event.total)
         .success (data, status, headers, config) ->
-          $scope.attachments.push {
+          $scope.attachments.push
             id: data.id
             file:
-              name: config.file.name
+              name: data.file.name
               url: data.file.url
-          }
+              size: data.file.size
+
+          uploaded_count++
+
+          $scope.uploading = no if uploaded_count == files.length
+
+  this.removeAttachment = (attachment) ->
+    _.remove($scope.attachments, attachment)
 
 ]
