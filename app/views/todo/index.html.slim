@@ -78,9 +78,10 @@
                       data-ng-if='!task.editing'
                       data-ng-class='{ "task-done": task.done }'
                       data-ng-click='taskCtrl.onNameClick(task)' ]
-                        ' {{task.name}}
                         span.label.label-danger.deadline data-ng-if='task.deadline'
                           ' {{ task.deadline | date: 'MMM d, y h:mm a' }}
+
+                        ' {{task.name}}
 
                     textarea.task-name-field [
                       name='name'
@@ -99,7 +100,7 @@
 
                     .task-body data-ng-show='task.active'
 
-                      .deadline.dropdown
+                      .deadline-dropdown.dropdown
                         button.btn.btn-default.btn-xs.dropdown-toggle.set-deadline [
                           id='dropdown-{{task.id}}'
                           data-toggle='dropdown' ]

@@ -1,7 +1,7 @@
 .logo {
   font-size: 26px;
   text-transform: uppercase;
-  text-shadow: 0 1px 0 #fff;
+  text-shadow: 1px 1px 0 #fff;
   text-align: center;
   font-weight: bold;
   margin: 20px 60px 40px;
@@ -33,7 +33,7 @@
       font-size: 22px;
       font-weight: normal;
       line-height: 38px;
-      text-shadow: 0 1px 0 #111;
+      text-shadow: 1px 1px 0 #111;
       overflow: hidden;
       width: 100%;
       height: 40px;
@@ -158,8 +158,8 @@
 
 .task-list {
   border: 1px solid #abafa3;
-  /*border-radius: 0 0 10px 10px;*/
-  /*overflow: hidden;*/
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
 }
 
 .tasks {
@@ -226,6 +226,11 @@
     font-size: 12px;
     font-weight: normal;
   }
+
+  .label {
+    padding: 3px 6px;
+    float: right;
+  }
 }
 
 .task-control {
@@ -276,10 +281,6 @@
     font-weight: normal;
   }
 
-  .deadline {
-    margin: 0 0 15px;
-  }
-
   .bootstrap-datetimepicker-widget {
     padding: 0 10px 0 5px;
     margin: 0;
@@ -328,6 +329,10 @@
   }
 }
 
+.comment-controller {
+  padding: 32px 0 0;
+}
+
 .comments-list {
   margin: 0 0 15px;
 
@@ -355,6 +360,11 @@
       color: #c30;
     }
   }
+}
+
+.deadline-dropdown {
+  margin: 0 0 15px;
+  position: absolute;
 }
 
 .footer {
