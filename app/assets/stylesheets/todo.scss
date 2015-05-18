@@ -276,6 +276,10 @@
     font-weight: normal;
   }
 
+  .deadline {
+    margin: 0 0 15px;
+  }
+
   .bootstrap-datetimepicker-widget {
     padding: 0 10px 0 5px;
     margin: 0;
@@ -325,7 +329,7 @@
 }
 
 .comments-list {
-  margin: 20px 0;
+  margin: 0 0 15px;
 
   .comment {
     position: relative;

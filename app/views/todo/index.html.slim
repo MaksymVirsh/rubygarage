@@ -99,8 +99,8 @@
 
                     .task-body data-ng-show='task.active'
 
-                      .dropdown
-                        button.btn.btn-primary.btn-xs.dropdown-toggle.set-deadline [
+                      .deadline.dropdown
+                        button.btn.btn-default.btn-xs.dropdown-toggle.set-deadline [
                           id='dropdown-{{task.id}}'
                           data-toggle='dropdown' ]
 
@@ -111,7 +111,7 @@
                         span data-ng-if='task.deadline'
                           '  or
 
-                          button.btn.btn-danger.btn-xs.cancel-deadline [
+                          button.btn.btn-default.btn-xs.cancel-deadline [
                             type='button'
                             data-ng-click='taskCtrl.setDeadline(task, null)' ]
 
@@ -125,7 +125,7 @@
                             data-datetimepicker-config='{ dropdownSelector: "#dropdown-{{ task.id }}" }' ]
 
                       .comment-controller data-ng-controller='commentCtrl as commentCtrl'
-                        .comments-list
+                        .comments-list data-ng-if='task.comments.length'
                           .comment data-ng-repeat='comment in task.comments'
                             a.comment-delete [
                               href=''

@@ -40,7 +40,6 @@ angular.module('app').controller 'commentCtrl', [ '$scope', 'CommentResource'
               size: data.file.size
 
           uploaded_count++
-
           $scope.uploading = no if uploaded_count == files.length
 
   this.removeAttachment = (attachment) ->

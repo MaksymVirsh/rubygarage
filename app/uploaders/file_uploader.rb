@@ -3,9 +3,15 @@ class FileUploader < CarrierWave::Uploader::Base
 
   storage :file
 
+  after :remove, :delete_empty_upstream_dirs
+
   def store_dir
     #"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     "#{model.class.to_s.underscore}/#{model.id}"
+  end
+
+  def cache_dir
+    "#{Rails.root}/tmp/uploads"
   end
 
   def serializable_hash
@@ -14,5 +20,11 @@ class FileUploader < CarrierWave::Uploader::Base
       name: self.file.identifier,
       size: self.file.size
     }
+  end
+
+  def delete_empty_upstream_dirs
+    Dir.delete(::File.expand_path(store_dir, root))
+  rescue SystemCallError
+    true
   end
 end
