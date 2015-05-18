@@ -13,6 +13,7 @@ RSpec.describe ProjectsController, type: :controller do
     let!(:user) { create(:user) }
     let!(:project) { create(:project, user_id: user.id) }
     let!(:task) { create(:task, project_id: project.id) }
+    let!(:comment) { create(:comment, task_id: task.id) }
 
     it 'returns curent users projects' do
       allow(controller).to receive(:current_user) { user }
@@ -22,6 +23,7 @@ RSpec.describe ProjectsController, type: :controller do
       expect(assigns(:projects)).to_not be_nil
       expect(json_response.first.keys).to be_include(:tasks)
       expect(json_response.first[:tasks].first.keys).to be_include(:comments)
+      expect(json_response.first[:tasks].first[:comments].first.keys).to be_include(:attachments)
     end
   end
 

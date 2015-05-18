@@ -7,7 +7,9 @@ class ProjectsController < ApplicationController
   authorize_resource
 
   def index
-    respond_with(@projects = current_user.projects, include: { tasks: { include: :comments } })
+    respond_with(@projects = current_user.projects, include: {
+      tasks: { include: { comments: { include: :attachments } } }
+    })
   end
 
   def create

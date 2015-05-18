@@ -34,7 +34,7 @@ module AcceptanceHelpers
   end
 
   def click_project_edit
-    find('.edit-project').click
+    all('.edit-project').first.click
   end
 
   def click_project_delete

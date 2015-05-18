@@ -6,7 +6,13 @@ class CommentsController < ApplicationController
   authorize_resource
 
   def create
-    respond_with(@comment = Comment.create(comment_params))
+    @comment = Comment.new(comment_params)
+
+    if @comment.save
+      Attachment.where(id: params[:attachments]).update_all(comment_id: @comment.id)
+    end
+
+    respond_with @comment
   end
 
   def destroy

@@ -28,4 +28,6 @@ Rails.application.routes.draw do
   end
 
   resources :comments, defaults: { format: :json }, only: [:create, :destroy]
+
+  resources :attachments, defaults: { format: :json }, only: [:create]
 end

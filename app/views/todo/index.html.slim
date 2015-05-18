@@ -134,6 +134,11 @@
 
                             ' {{ comment.text }}
 
+                            ul.attachments data-ng-if='comment.attachments.length'
+                              li data-ng-repeat='attachment in comment.attachments'
+                                span.glyphicon.glyphicon-file
+                                a href='{{attachment.file.url}}' target='_blank' {{attachment.file.name}}
+
                         .form-group
                           textarea.form-control.comment-field [
                             data-ng-model='task.comment'
@@ -142,16 +147,21 @@
                             data-ng-enter='commentCtrl.add(task)'
                             placeholder='Start typing here to write comment...' ]
 
-                        /.form-group
-                          /button.btn.btn-default.btn-xs [
-                            /ngf-select=''
-                            /ngf-change='upload($files)' ] Attach file
+                        .form-group
+                          .text-right.pull-right
+                            button.btn.btn-default.btn-sm.submit-comment [
+                              data-ng-disabled='!task.comment.length'
+                              data-ng-click='commentCtrl.add(task)' ] Submit comment
 
-                        .text-right
-                          a.btn.btn-default.btn-sm.submit-comment [
-                            href=''
-                            data-ng-disabled='!task.comment.length'
-                            data-ng-click='commentCtrl.add(task)' ] Submit comment
+                          button.btn.btn-default.btn-sm.attach-file [
+                            ngf-select=''
+                            ngf-change='upload($files)'
+                            ngf-multiple='true' ] Attach file
+
+                          ul.attachments
+                            li ng-repeat='attachment in attachments'
+                              span.glyphicon.glyphicon-file
+                              a href='{{attachment.file.url}}' target='_blank' {{attachment.file.name}}
 
                 td.task-control
                   .control

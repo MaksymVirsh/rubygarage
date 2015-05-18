@@ -44,5 +44,7 @@ RSpec.describe Ability do
     it { should be_able_to :create, Comment }
     it { should be_able_to :destroy, comment_one, user: user }
     it { should_not be_able_to :destroy, comment_two, user: user }
+
+    it { should be_able_to :create, Attachment }
   end
 end

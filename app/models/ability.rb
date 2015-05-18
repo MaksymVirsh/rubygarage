@@ -20,7 +20,7 @@ class Ability
   def user_abilities
     guest_abilities
 
-    can :create, [Project, Task, Comment]
+    can :create, [Project, Task, Comment, Attachment]
 
     can :read, Project, user: user
     can :update, Project, user: user
