@@ -158,6 +158,7 @@
 
 .task-list {
   border: 1px solid #abafa3;
+  background: $brand-warning;
   border-radius: 0 0 10px 10px;
   overflow: hidden;
 }
@@ -228,8 +229,9 @@
   }
 
   .label {
-    padding: 3px 6px;
     float: right;
+    padding: 3px 6px;
+    margin: 1px 0px 0;
   }
 }
 
@@ -317,10 +319,9 @@
 }
 
 .as-sortable-placeholder {
-  position: relative;
+  border-radius: 10px;
 
   &:before {
-    background: $brand-warning;
     content: '';
     display: block;
     width: inherit;
