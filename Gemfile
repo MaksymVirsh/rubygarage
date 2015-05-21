@@ -85,7 +85,7 @@ group :development, :test do
 
   # RSpec
   gem 'rspec-rails'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'database_cleaner'
