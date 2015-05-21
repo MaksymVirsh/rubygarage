@@ -85,7 +85,7 @@ group :development, :test do
 
   # RSpec
   gem 'rspec-rails'
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'database_cleaner'
