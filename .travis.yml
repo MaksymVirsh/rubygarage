@@ -1,4 +1,10 @@
 language: ruby
 before_install:
   - gem install bundler
-script: 'bundle exec rspec spec'
+before_script:
+  - cp config/database.yml.sample config/database.yml
+  - psql -c 'create database todo_test' -U postgres
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rspec spec
