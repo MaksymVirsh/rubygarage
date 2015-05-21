@@ -1,5 +1,7 @@
 language: ruby
 before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
   - gem install bundler
 before_script:
   - cp config/database.yml.sample config/database.yml
@@ -7,4 +9,4 @@ before_script:
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
-  - bundle exec rspec spec/controllers spec/models --format doc
+  - bundle exec rspec spec --format doc

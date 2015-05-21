@@ -2,7 +2,7 @@
 
 This is a test task for the RubyGarage.
 
-    See demo on https://timlar.herokuapp.com/
+Demo: https://timlar.herokuapp.com/
 
 ## Product requirements document
 
