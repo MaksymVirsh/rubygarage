@@ -10,20 +10,6 @@ def login_as_user(user = nil)
   login_as(@current_user, scope: :user, run_callbacks: false)
 end
 
-def pry!
-  require 'pry'
-
-  login = @current_user.email
-  password = @current_user.password
-
-  puts '=' * 100
-  puts "login: #{login}, password: #{password}".center(100)
-  puts current_url.center(100)
-  puts '=' * 100
-
-  binding.pry
-end
-
 RSpec.configure do |config|
   # Capybara driver
   Capybara.register_driver :poltergeist do |app|

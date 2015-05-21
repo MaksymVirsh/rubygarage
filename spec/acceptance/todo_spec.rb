@@ -317,10 +317,10 @@ feature 'Projects' do
           skip "In PhantomJS 2.0.0 attach_file doesn't attach the file. " +
                "Read more: https://github.com/teampoltergeist/poltergeist/issues/594"
 
-          find('.attach-file').trigger(:click)
-          script = "$('input[type=file]').attr({ style: null, name: 'file_input'});"
-          page.execute_script(script)
-          attach_file 'file_input', "#{Rails.root}/spec/factories/attachments.rb"
+          #find('.attach-file').trigger(:click)
+          #script = "$('input[type=file]').attr({ style: null, name: 'file_input'});"
+          #page.execute_script(script)
+          #attach_file 'file_input', "#{Rails.root}/spec/factories/attachments.rb"
           #save_and_open_screenshot
         end
       end
