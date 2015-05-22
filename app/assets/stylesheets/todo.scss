@@ -104,10 +104,9 @@
   .create-task-header {
     background: #e1e1e1 asset-url('bg-create-task-header.png') repeat-x 0 0;
     height: 50px;
-    line-height: 50px;
     border: 0 solid #abafa3;
     border-width: 0 1px 1px;
-    padding: 0 15px;
+    padding: 8px 15px 0;
 
     .create-task-in {
       background: asset-url('icon-plus.png') no-repeat 0 50%;
