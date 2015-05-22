@@ -9,6 +9,12 @@ RSpec.describe ProjectsController, type: :controller do
     expect(subject.current_user).to_not be_nil
   end
 
+  it 'rescues from CanCan::AccessDenied' do
+    allow(controller).to receive(:authorize!).and_raise(CanCan::AccessDenied)
+    post :create
+    expect(response.body).to eq('You are not authorized to access this page.')
+  end
+
   describe 'GET #index' do
     let!(:user) { create(:user) }
     let!(:project) { create(:project, user_id: user.id) }
