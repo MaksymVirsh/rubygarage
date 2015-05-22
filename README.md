@@ -31,9 +31,12 @@ Functional requirements
   - For the client side must be used: HTML5, CSS3, Twitter Bootstrap, JavaScript, AngularJS, jQuery.
   - For server side Ruby on Rails.
 - It should have client side and server side validation.
-- It should look like on screens (see attached file ‘rg_test_task_grid.png’).
+- It should look like on screens (see screenshot).
 - It should work like one page WEB application and should use AJAX technology, load and submit data without reloading a page.
 - It should have user authentication solution and a user should only have access to their own projects and tasks (Devise, Cancancan gems).
 - It should have automated tests for all functionality (models — RSpec, controllers — RSpec, acceptance/functional tests — RSpec + Capybara).
 - It should use Carrierwave gem to manage uploaded files
 
+### Screenshot
+
+![alt tag](https://raw.githubusercontent.com/timlar/rubygarage/master/app/assets/images/rg_test_task_grid.png)
