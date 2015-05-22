@@ -75,6 +75,11 @@ module AcceptanceHelpers
     wait_for_ajax
   end
 
+  def press_escape_on_editing_task_name
+    task_name_field.native.send_key(:Escape)
+    wait_for_ajax
+  end
+
   def hover_task
     all('.task-name').first.trigger(:mouseover)
   end

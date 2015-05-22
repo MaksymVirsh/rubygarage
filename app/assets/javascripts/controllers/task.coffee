@@ -29,8 +29,15 @@ angular.module('app').controller 'taskCtrl', [ '$scope', 'TaskResource'
         task.errors = response.data.errors.name
 
   this.edit = (task) ->
+    this.old_task_name = task.name
     $scope.editing = yes
     task.editing = yes
+
+  this.cancel = (task) ->
+    task.name = this.old_task_name if task.id
+
+    $scope.editing = no
+    task.editing = no
 
   this.save = (task) ->
     if task.name

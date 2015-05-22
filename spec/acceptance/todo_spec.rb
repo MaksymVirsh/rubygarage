@@ -130,10 +130,22 @@ feature 'Projects' do
     expect(page).to have_css('.create-task-header')
   end
 
-  scenario 'cancel edit when press Esc', js: true do
+  scenario 'cancel create a project when press Escape', js: true do
     click_create_project
+    expect(page).to have_css('.project-form')
     project_name_field.native.send_key(:Escape)
     expect(page).to_not have_css('.project-form')
+  end
+
+  scenario 'cancel edit the project when press Escape', js: true do
+    click_create_project
+    input_project_name 'Project 1'
+    hover_project
+    click_project_edit
+    clear_project_name
+    expect(page).to have_css('.project-field .project-name-field', text: '')
+    project_name_field.native.send_key(:Escape)
+    expect(page).to have_css('.project-field h2', text: 'Project 1')
   end
 
   feature 'Tasks' do
@@ -191,16 +203,6 @@ feature 'Projects' do
       expect(page).to_not have_css('.task-name .task-name-field')
     end
 
-    scenario 'cancel edit when press Esc', js: true do
-      input_task_name 'Task 1'
-      click_add_task_button
-      hover_task
-      click_task_edit
-      expect(page).to have_css('.task-name .task-name-field')
-      task_name_field.native.send_key(:Escape)
-      expect(page).to_not have_css('.task-name .task-name-field')
-    end
-
     scenario 'edit task with empty name', js: true do
       input_task_name 'Task 1'
       press_enter_on_task_name
@@ -224,6 +226,16 @@ feature 'Projects' do
       edit_task_name 'Task 2'
       press_enter_on_editing_task_name
       expect(page).to have_css('.task-error')
+    end
+
+    scenario 'cancel edit the task when press Escape', js: true do
+      input_task_name 'Task 1'
+      click_add_task_button
+      hover_task
+      click_task_edit
+      edit_task_name 'Blah-blah-blah'
+      press_escape_on_editing_task_name
+      expect(page).to have_css('.task-name .task-name-text', text: 'Task 1')
     end
 
     scenario 'delete a task', js: true do

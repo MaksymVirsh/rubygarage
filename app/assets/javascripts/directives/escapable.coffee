@@ -5,7 +5,7 @@ angular.module('app').directive 'escapable', ['$parse', ($parse) ->
       esc_key_code = 27
 
       if event.which is esc_key_code
-        fn = $parse attrs.ngEnter
+        fn = $parse attrs.escapable
         scope.editing
         scope.$apply( -> fn(scope, { $event: event }) ) unless scope.$$phase
 

@@ -13,7 +13,16 @@ angular.module('app').controller 'projectCtrl', [ '$scope', 'ProjectResource'
       $scope.editing = yes
       this.projects.push project
 
-  this.save = (project, index)->
+  this.cancel = (project) ->
+    if project.id
+      project.name = this.old_project_name
+    else
+      do this.projects.pop
+
+    $scope.editing = no
+    project.editing = no
+
+  this.save = (project) ->
     if project.form.name.$valid
       if project.id
         ProjectResource.update({ id: project.id }, project).$promise.then (response) ->
@@ -37,6 +46,7 @@ angular.module('app').controller 'projectCtrl', [ '$scope', 'ProjectResource'
         $scope.editing = no
 
   this.edit = (project) ->
+    this.old_project_name = project.name
     $scope.editing = yes
     project.editing = yes
 

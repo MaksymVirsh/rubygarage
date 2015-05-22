@@ -24,7 +24,7 @@
               data-ng-model='project.name'
               data-ng-enter='projectCtrl.save(project)'
               data-ng-blur='projectCtrl.save(project)'
-              data-escapable=''
+              data-escapable='projectCtrl.cancel(project)'
               data-auto-focus='' ]
 
         .control
@@ -90,9 +90,9 @@
                       data-ng-model='task.name'
                       data-ng-enter='taskCtrl.save(task)'
                       data-ng-blur='taskCtrl.save(task)'
+                      data-escapable='taskCtrl.cancel(task)'
                       data-elastic=''
                       data-auto-focus=''
-                      data-escapable=''
                       required='' ]
 
                     .task-error data-ng-show='task.errors.length'
