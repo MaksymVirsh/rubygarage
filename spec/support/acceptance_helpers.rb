@@ -91,4 +91,12 @@ module AcceptanceHelpers
   def click_on_task
     find('.task-name').click
   end
+
+  def comment_field
+    find('.comment-field')
+  end
+
+  def submit_comment
+    find('.submit-comment').trigger('click')
+  end
 end
