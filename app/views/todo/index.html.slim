@@ -40,6 +40,9 @@
 
           form.create-task-form name='project.task_form'
             .create-task-in.input-group
+              .task-error data-ng-show='errors.length'
+                .error data-ng-repeat='error in errors' {{ error | capitalize }}
+
               input.create-task-name-field.form-control [
                 name='task_name'
                 type='text'

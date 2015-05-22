@@ -13,6 +13,7 @@ angular.module('app').controller 'taskCtrl', [ '$scope', 'TaskResource'
 
   this.add = (project) ->
     form = project.task_form
+    $scope.errors = []
 
     if form.task_name.$dirty and form.task_name.$valid
       project.tasks = [] if not project.tasks
@@ -27,6 +28,7 @@ angular.module('app').controller 'taskCtrl', [ '$scope', 'TaskResource'
         task.errors = []
       .catch (response) ->
         task.errors = response.data.errors.name
+        $scope.errors = task.errors
 
   this.edit = (task) ->
     this.old_task_name = task.name
@@ -38,6 +40,7 @@ angular.module('app').controller 'taskCtrl', [ '$scope', 'TaskResource'
 
     $scope.editing = no
     task.editing = no
+    task.errors = []
 
   this.save = (task) ->
     if task.name

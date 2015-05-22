@@ -80,18 +80,6 @@
       }
     }
 
-    .project-error {
-      background: red;
-      position: absolute;
-      top: -20px;
-      padding: 4px 8px;
-      color: #fff;
-      border-radius: 3px;
-      box-shadow: 1px 2px 1px #555;
-      left: 40px;
-      z-index: 10;
-    }
-
     &.hovered {
       .control {
         display: block;
@@ -99,7 +87,22 @@
     }
   }
 
+  .project-error,
+  .task-error {
+    background: red;
+    position: absolute;
+    top: -20px;
+    padding: 4px 8px;
+    color: #fff;
+    border-radius: 3px;
+    box-shadow: 1px 2px 1px #555;
+    left: 40px;
+    z-index: 10;
+  }
 
+  .task-error {
+    left: 30px;
+  }
 
   .create-task-header {
     background: #e1e1e1 asset-url('bg-create-task-header.png') repeat-x 0 0;

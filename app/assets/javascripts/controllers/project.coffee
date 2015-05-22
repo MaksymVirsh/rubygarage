@@ -21,6 +21,7 @@ angular.module('app').controller 'projectCtrl', [ '$scope', 'ProjectResource'
 
     $scope.editing = no
     project.editing = no
+    project.errors = []
 
   this.save = (project) ->
     if project.form.name.$valid

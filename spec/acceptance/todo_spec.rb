@@ -181,6 +181,10 @@ feature 'Projects' do
       input_task_name 'Task 1'
       press_enter_on_task_name
       expect(page).to have_css('.task-name', text: 'Task 1', count: 1)
+      expect(page).to have_css('.task-error')
+      input_task_name 'Task 2'
+      press_enter_on_task_name
+      expect(page).to_not have_css('.task-error')
     end
 
     scenario 'show task control buttons on mouse over', js: true do
