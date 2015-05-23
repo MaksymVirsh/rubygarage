@@ -1,4 +1,4 @@
-# Simple TODO List [![Build Status](https://travis-ci.org/timlar/rubygarage.svg?branch=master)](https://travis-ci.org/timlar/rubygarage) [![Coverage Status](https://coveralls.io/repos/timlar/rubygarage/badge.svg?branch=master)](https://coveralls.io/r/timlar/rubygarage?branch=master)
+# Simple TODO List [![Build Status](https://travis-ci.org/timlar/rubygarage.svg?branch=master)](https://travis-ci.org/timlar/rubygarage) [![Coverage Status](https://coveralls.io/repos/timlar/rubygarage/badge.svg?branch=master)](https://coveralls.io/r/timlar/rubygarage?branch=master) [![Code Climate](https://codeclimate.com/github/timlar/rubygarage/badges/gpa.svg)](https://codeclimate.com/github/timlar/rubygarage)
 
 This is a test task for the RubyGarage.
 
