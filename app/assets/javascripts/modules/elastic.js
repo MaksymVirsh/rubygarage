@@ -1,3 +1,7 @@
+/**
+ * Third-party module
+ */
+
 angular.module('elastic', [])
 
   .constant('ElasticConfig', {
